@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>List</title>
+</head>
+<body>
+<div th:switch="${userAccountList}">
+    <h2 th:case="null">No users found!</h2>
+    <div th:case="*">
+        <h2>Users</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Username</th>
+                <th>First name</th>
+                <th>Last name</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="userAccount : ${userAccountList}">
+                <td th:text="${userAccount.username}"></td>
+                <td th:text="${userAccount.firstName}"></td>
+                <td th:text="${userAccount.lastName}"></td>
+                <td><a th:href="@{user/{id}(id=${userAccount.accountId})}">View</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href="/user/new">Create account</a></p>
+</div>
+<br/>
+<form action="/logout" method="POST">
+    <button type="submit">Logout</button>
+</form>
+</body>
+</html>
